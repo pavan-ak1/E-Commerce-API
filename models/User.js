@@ -21,7 +21,9 @@ const UserSchema = mongoose.Schema({
 
   password: {
     type: String,
-    required: [true, "Please provide a password"],
+    required: [function(){
+      return !this.googleId
+    }, "Please provide a password"],
     minlength:6,
 
   },
@@ -29,7 +31,15 @@ const UserSchema = mongoose.Schema({
     type:String,
     enum:['admin', 'user'],
     default:'user',
-  }
+  },
+  googleId: {
+    type: String, // For OAuth users
+    unique: true,
+    sparse: true, // Prevent index conflicts when null
+  },
+  photo: {
+    type: String, // Optional: profile picture from Google
+  },
 });
 
 UserSchema.pre('save', async function(){
