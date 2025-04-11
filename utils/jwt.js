@@ -8,9 +8,14 @@ const creatJwt = ({payload})=>{
 }
 
 
-const isTokenValid = ({token})=>{
-    jwt.verify(token,process.env.JWT_SECRET);
-}
+const isTokenValid = ({ token }) => {
+    try {
+        return jwt.verify(token, process.env.JWT_SECRET);
+    } catch (error) {
+        return null;
+    }
+};
+
 
 
 const attachCookiesToResponse = ({res, user})=>{
