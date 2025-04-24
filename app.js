@@ -12,6 +12,7 @@ const connectDb = require("./db/connectDb");
 // Routers
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes')
 // const userRoutes = 
 
 // Middleware
@@ -39,6 +40,7 @@ app.get("/api/v1/", (req, res) => {
 //routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users',userRoutes);
+app.use('/api/v1/products', productRoutes)
 
 
 //middleware
