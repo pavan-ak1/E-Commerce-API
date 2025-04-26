@@ -8,7 +8,7 @@ const {createProduct, getAllProducts, getSingleProduct, updateProduct, deletePro
 
 router.route('/').post([authenticateUser, authorizePermissions('admin')], createProduct).get(getAllProducts);
 
-router.route('/uploadImage').post([authenticateUser, authorizePermissions('admin')], updateProduct)
+router.route('/uploadImage').post([authenticateUser, authorizePermissions('admin')], uploadImage)
 
 router.route('/:id').get(getSingleProduct).patch([authenticateUser, authorizePermissions('admin')], updateProduct).delete([authenticateUser, authorizePermissions('admin')], deleteProduct)
 
