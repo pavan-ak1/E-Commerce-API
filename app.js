@@ -13,7 +13,9 @@ const connectDb = require("./db/connectDb");
 // Routers
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productRoutes')
+const productRoutes = require('./routes/productRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+
 // const userRoutes = 
 
 // Middleware
@@ -30,9 +32,6 @@ app.use(cors());
 
 
 // Basic route
-
-
-
 app.get("/api/v1/", (req, res) => {
   console.log(req.signedCookies);
   
@@ -43,7 +42,7 @@ app.get("/api/v1/", (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users',userRoutes);
 app.use('/api/v1/products', productRoutes)
-
+app.use('/api/v1/reviews', reviewRoutes)
 
 //middleware
 app.use(notFoundMiddleware);
