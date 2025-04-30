@@ -47,12 +47,7 @@ app.use(cors());
 
 
 
-// Basic route
-app.get("/api/v1/", (req, res) => {
-  console.log(req.signedCookies);
-  
-  res.send("My E-commerce API");
-});
+
 
 //routes
 app.use('/api/v1/auth', authRoutes);
