@@ -7,6 +7,12 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
+const rateLImiter  =require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize')
+
+
 // Database Connection
 const connectDb = require("./db/connectDb");
 
@@ -15,6 +21,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const orderRoutes = require('./routes/orderRoutes')
 
 // const userRoutes = 
 
@@ -22,6 +29,15 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+
+app.set('trust proxy', 1);
+app.use(rateLImiter({
+  windowMs:15*0*1000,
+  max:60,
+}));
+app.use(helmet())
+app.use(xss());
+app.use(mongoSanitize())
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
@@ -42,7 +58,8 @@ app.get("/api/v1/", (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users',userRoutes);
 app.use('/api/v1/products', productRoutes)
-app.use('/api/v1/reviews', reviewRoutes)
+app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/orders', orderRoutes)
 
 //middleware
 app.use(notFoundMiddleware);

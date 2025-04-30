@@ -1,29 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const SingleCartItemsSchema = mongoose.Schema({
-  name:{
-    type:String,
-    required:true,
-  },
-  Image:{
-    type:String,
-    required:true,
-  },
-  price:{
-    type:Number,
-    required:true,
-  },
-  amount:{
-    type:Number,
-    required:true,
-  },
-  product:{
-    type:mongoose.Schema.ObjectId,
-    ref:'Product',
-    required:true,
-  }
-})
+
 
 const ProductSchema = new mongoose.Schema(
   {
